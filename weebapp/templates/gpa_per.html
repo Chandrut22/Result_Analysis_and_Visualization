@@ -1,0 +1,94 @@
+{% extends "index.html" %}
+{% block content %}
+    <title>GPA Rank List</title>
+    <style>
+      /* Center the content vertically and horizontally */
+
+      body{
+  background-color: #f2f2f2;
+      }
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Style the heading */
+h1 {
+  color: #333;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the table */
+table {
+  border-collapse: collapse;
+  border: 2px solid #333;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style the download button */
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect on button */
+button:hover {
+  background-color: #3e8e41;
+}
+
+    </style>
+
+  </head>
+  <body>
+    <div class="center">
+      <br>
+    <h1>GPA Rank List</h1>
+    {% if dataframe is not None %}
+    <table style="width:25%">
+        <thead>
+          <tr>
+            {% for column in dataframe.columns %}
+              <th>{{ column }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in dataframe.values %}
+            <tr>
+              {% for value in row %}
+                <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      <h2>To Download The Subject Report</h2>
+    <a href="{% url 'download_gpa_file' %}"><button>Download file</button></a>
+    {% else %}
+      <p>No data found.</p>
+    {% endif %}
+    {% endblock %}

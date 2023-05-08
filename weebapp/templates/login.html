@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+{% block content %}
+    <title>Result Analysis and Visualization</title>
+    <style>
+body {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+form input[type="text"], form input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.alert {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <div>
+        <div>
+            {% if messages %}
+                    {% for message in messages %}
+                    <div>
+                        {{message}}
+                    </div>
+                    {% endfor %}
+            {% endif %}
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{form.as_p}}
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        </div>
+    
+        {% endblock %}

@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% block content %}
+    <title>Result Analysis and Visualization</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+
+      }
+      
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      
+      h2 {
+        font-size: 24px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      
+      h4 {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      
+      
+      button:hover {
+        background-color: #3e8e41;
+      }
+      
+      footer {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    
+    /* Style the Home button */
+    .home-button {
+      background-color: #008CBA;
+    }
+    
+    /* Style the Logout button */
+    .logout-button {
+      background-color: #f44336;
+    }
+    </style>
+    <body>
+        {% if user.is_authenticated %}
+        <h1>Result Analysis and Visualization</h1></li><br>
+        <h2>Welcome, {{user.username}}</h2>
+        <a href="{% url 'profile' %}"><button>Home</button></a></li><br><br>
+        <a href="{% url 'logout' %}"><button>Logout</button></a>
+        <h4>Upload the Pdf File</h2>
+        <a href="/upload"><button>Upload</button></a>
+        
+        {% else %}
+        <h1>Result Analysis and Visualization</h1></li><br>
+        <a href="/"><button>Home</button></a></li><br> 
+        <a href="{% url 'login' %}"><button>Login</button></a>
+        {% endif %}
+        {% endblock %}
