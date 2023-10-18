@@ -1,0 +1,126 @@
+{% extends "index.html" %}
+{% block content %}
+  <title>Student Performance Report</title>
+  <style>
+
+  /* Center the content */
+
+  .center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  text-align: center;
+}
+form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+
+  label {
+    font-size: 18px;
+  }
+
+  select {
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #3e8e41;
+  }
+
+  /* Style the performance summary */
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  li {
+    margin: 10px 0;
+    font-size: 16px;
+  } 
+   .chart-img {
+  width: 750px;
+  height: 600px;
+}
+
+
+  /* Style the download button */
+  a {
+    text-decoration: none;
+  }
+
+
+  button.download {
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button.download:hover {
+    background-color: #3e8e41;
+  }
+
+  </style>
+</head>
+<body class="center">
+  <br>
+  <h1>Student Performance Report</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <label for="number_input">Enter student registration number:</label>
+    <select id="number_input" name="number_input" required>
+      {% for i in reg %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Get Performance</button>
+  </form>
+  <br>
+  {% if stu_name %}
+  <p> <strong>Name: </strong>{{stu_name}} </p>
+  <p> <strong>Reg.No: </strong>{{reg_no}}</p>
+  {% endif %}
+  {% if image_data %}
+    <h2>Performance Graph:</h2>
+    <br>
+    <img src="data:image/png;base64,{{ image_data }}"class="chart-img">
+    <br>
+  {% endif %}
+  {% if summary %}
+  <br>
+  <h2>Performance Summary:</h2>
+  <ul>
+    {% for item in summary %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul><br>
+  <h2>To Download The Student Report</h2>
+    <a href="{% url 'download_stu_file' %}"><button class="download">Download file</button></a>
+  {% endif %}
+  {% endblock %}

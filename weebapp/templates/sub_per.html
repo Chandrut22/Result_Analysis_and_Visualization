@@ -1,0 +1,139 @@
+{% extends "index.html" %}
+{% block content %}
+	<title>Subject Performance Report</title>
+	<style>
+		.chart-img {
+			width: 750px;
+			height: 600px;
+		}
+		/* Center the content vertically and horizontally */
+		.center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+		}
+    .txt{
+	  display: flex;
+	  flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+    }
+		form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+		}
+		label {
+			font-size: 18px;
+		}
+		select {
+			margin: 10px 0;
+			padding: 5px;
+			font-size: 16px;
+		}
+		button {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #3e8e41;
+		}
+  /* Style the download button */
+  a {
+    text-decoration: none;
+  }
+
+
+  button.download {
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button.download:hover {
+    background-color: #3e8e41;
+  }
+
+	</style>
+</head>
+<body class="center">
+	<div>
+		<br>
+		<h2>Subject Performance Report</h2>
+		<br>
+		<div>
+			<form method="post">
+				{% csrf_token %}
+				<label for="subject-name" class="subject-form label">Select Subject:</label>
+				<select name="subject_name" id="subject_name">
+					{% for item in sub_name %}
+						<option value="{{ item }}">{{ item }}</option>
+					{% endfor %}
+				</select>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<div>
+			<br>
+			{% if pie %}
+				<h3>Subject Performance Chart:</h3>
+				<img src="data:image/png;base64,{{ pie }}" alt="Subject Performance Chart" class="chart-img">
+			{% endif %}
+		</div>
+		<br>
+		<div>
+			{% if img %}	
+				<img src="data:image/png;base64,{{ img }}" alt="Subject Performance Chart" class="chart-img">
+			{% endif %}
+		
+	</div>
+</div>
+<br>
+	<div class="txt" >
+	
+		{% if dict %} 
+			{% if count %}
+				<h3>Summary:</h3>
+				<ul>
+					{% for item in count %}
+						<li>{{ item }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	<div class="txt" >
+			<br>
+			<h2>Subject Report</h2>
+			{% for key, value in dict.items %}
+				<h3>{{ key }}</h3>
+				<ul>
+					{% for name in value %}
+						<li>{{ name }}</li>
+					{% endfor %}
+					</ul>
+			{% endfor %}
+		</div>
+		<div>
+			<h2>To Download The Subject Report</h2>
+			<a href="{% url 'download_sub_file' %}"><button class="download">Download file</button></a>
+		</div>
+	{% endif %}
+	{% endblock %}

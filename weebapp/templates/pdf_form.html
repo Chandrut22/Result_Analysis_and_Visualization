@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% block content %}
+    <title>Upload the PDF file</title>
+    <style>
+      body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 30px;
+      }
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+      label {
+        display: block;
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+      select,
+      input[type="file"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+      }
+      button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 20px;
+      }
+      button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PDF Upload</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="semester">Select Semester:</label>
+      <select id="semester" name="semester" required>
+        <option value="">--Select Semester--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <label for="pdf_file">Choose PDF File:</label>
+      <input type="file" id="pdf_file" name="pdf_file" accept=".pdf" required>
+      <button type="submit">Submit</button>
+    </form>
+    {% endblock %}
